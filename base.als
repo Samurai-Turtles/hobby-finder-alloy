@@ -15,11 +15,8 @@ sig Usuario {
 
 // Fatos base
 
-fact UsuarioNoSistema {
-	all u:Usuario | one s:Sistema | u in s.usuarios
-}
-
 fact NaoPodeMesmoUserName {
-	all usuario1, usuario2: Usuario | 
-		usuario1 != usuario2 => usuario1.nome != usuario2.nome
+	all usuario1, usuario2: Usuario | all sistema: Sistema |
+		(usuario1 in sistema.usuarios && usuario2 in sistema.usuarios) => 
+		(usuario1 != usuario2 => usuario1.username != usuario2.username)
 }
